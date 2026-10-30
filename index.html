@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="description" content="Play Rock Paper Scissors in the browser. Choose best of three, a set number of rounds, or a custom match.">
 	<meta name="theme-color" content="#100e0c">
 	<meta property="og:title" content="Rock Paper Scissors">
@@ -10,13 +10,14 @@
 	<meta property="og:image" content="https://moshahan.github.io/rock-paper-scissors/assets/og-image.jpg">
 	<meta property="og:type" content="website">
 	<title>Rock Paper Scissors</title>
-	<link rel="icon" href="assets/favicon.ico" sizes="any">
 	<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+	<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+	<link rel="icon" href="favicon.ico" sizes="48x48">
 	<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="modern.css">
+	<link rel="stylesheet" href="css/modern.css">
 </head>
 <body>
 	<nav class="version-switch" aria-label="Site version">
@@ -134,7 +135,7 @@
 		<section class="screen" id="over-screen" hidden>
 			<p class="eyebrow" id="over-kicker">Match over</p>
 			<h2 id="over-title">You take the table</h2>
-			<p class="final-score" id="final-score">0 — 0</p>
+			<p class="final-score" id="final-score">0 - 0</p>
 			<p class="lede" id="over-copy"></p>
 			<div class="over-actions">
 				<button type="button" class="primary" id="play-again">Play again</button>
@@ -143,7 +144,7 @@
 		</section>
 	</main>
 
-	<script src="dom.js"></script>
-	<script src="modern.js"></script>
+	<script src="js/dom.js"></script>
+	<script src="js/modern.js"></script>
 </body>
 </html>

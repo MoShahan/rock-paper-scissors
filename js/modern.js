@@ -326,7 +326,7 @@
 		const label = state.match.label.toLowerCase();
 
 		els.overKicker.textContent = "Match over";
-		els.finalScore.textContent = `${state.playerScore} — ${state.computerScore}`;
+		els.finalScore.textContent = `${state.playerScore} - ${state.computerScore}`;
 
 		if (tied) {
 			els.overTitle.textContent = "The table stays even";

@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rock Paper Scissors">
-  <rect width="64" height="64" rx="14" fill="#14110f"/>
-  <rect x="4" y="4" width="56" height="56" rx="11" fill="none" stroke="#c9a45a" stroke-width="3"/>
-  <ellipse cx="32" cy="20" rx="11" ry="9" fill="#d2b48c"/>
-  <path fill="#efe6d6" d="M14 34h16l-3 16H17z"/>
-  <g fill="none" stroke="#c5cdd4" stroke-linecap="round" stroke-width="2.2">
-    <path d="M40 32l9 16"/>
-    <path d="M50 32l-9 16"/>
-    <circle cx="42" cy="51" r="3.2"/>
-    <circle cx="56" cy="51" r="3.2"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+	<rect width="32" height="32" rx="7" fill="#14110f"/>
+	<rect x="1.5" y="1.5" width="29" height="29" rx="6" fill="none" stroke="#c9a45a" stroke-width="2"/>
+	<ellipse cx="16" cy="10.2" rx="5.4" ry="4.3" fill="#d2b48c"/>
+	<path fill="#efe6d6" d="M6.2 15.2h9.8l-2.2 9.6H8.2z"/>
+	<g fill="none" stroke="#c5cdd4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7">
+		<path d="M18.2 13.4 25.6 24.4"/>
+		<path d="M25.8 13.4 18.4 24.4"/>
+		<circle cx="17.8" cy="24.8" r="2.15"/>
+		<circle cx="26.2" cy="24.8" r="2.15"/>
+	</g>
 </svg>

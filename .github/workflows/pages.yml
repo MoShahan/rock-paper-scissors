@@ -24,10 +24,10 @@ jobs:
 
       - name: Assemble site
         run: |
-          mkdir -p _site/assets
-          cp index.html classic.html modern.css modern.js rps.css rps.js \
-            dom.js rock-paper-scissor-ft.jpeg .nojekyll \
-            _site/
+          mkdir -p _site/css _site/js _site/assets
+          cp index.html classic.html .nojekyll favicon.ico _site/
+          cp -r css/. _site/css/
+          cp -r js/. _site/js/
           cp -r assets/. _site/assets/
 
       - name: Set up Pages
