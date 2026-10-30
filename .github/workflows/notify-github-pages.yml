@@ -9,14 +9,15 @@
 #   TELEGRAM_BOT_TOKEN
 #   TELEGRAM_CHAT_ID
 #
-# If your deploy workflow uses a different `name:`, update `workflows:` below.
+# Must match the `name:` in pages.yml. GitHub also accepts the filename.
 
 name: Notify GitHub Pages
 
 on:
   workflow_run:
     workflows:
-      - Deploy to GitHub Pages
+      - Deploy GitHub Pages
+      - pages.yml
     types:
       - completed
 
