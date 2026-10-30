@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Classic Rock Paper Scissor — the original version of this game.">
+	<title>Rock Paper Scissor</title>
+	<link rel="icon" href="assets/favicon.ico" sizes="any">
+	<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+	<link rel="stylesheet" href="rps.css">
+</head>
+<body>
+	<nav class="version-switch" aria-label="Site version">
+		<a class="is-active" href="classic.html" aria-current="page">Classic</a>
+		<a href="index.html">Modern</a>
+	</nav>
+
+	<section class="game">
+		<div class="title">Rock Paper Scissor</div>
+		<div class="score">
+			<div class="playerScore">
+				<h2>Player</h2>
+				<p class="p-count count">0</p>
+			</div>
+			<div class="computerScore">
+				<h2>Computer</h2>
+				<p class="c-count count">0</p>
+			</div>
+		</div>
+
+		<div class="move">Choose your move</div>
+		<div class="movesleft">Moves Left: 10 </div>
+		<br><br><br><br>
+
+		<div class="options">
+			<button class="rock" type="button" data-choice="rock" aria-label="Rock">Rock</button>
+			<button class="paper" type="button" data-choice="paper" aria-label="Paper">Paper</button>
+			<button class="scissor" type="button" data-choice="scissors" aria-label="Scissors">Scissors</button>
+		</div>
+
+		<div class="result"></div>
+		<button class="reload" type="button" aria-label="Restart"></button>
+	</section>
+
+	<script src="dom.js"></script>
+	<script src="rps.js"></script>
+</body>
+</html>

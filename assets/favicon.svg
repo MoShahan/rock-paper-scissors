@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rock Paper Scissors">
+  <rect width="64" height="64" rx="14" fill="#14110f"/>
+  <rect x="4" y="4" width="56" height="56" rx="11" fill="none" stroke="#c9a45a" stroke-width="3"/>
+  <ellipse cx="32" cy="20" rx="11" ry="9" fill="#d2b48c"/>
+  <path fill="#efe6d6" d="M14 34h16l-3 16H17z"/>
+  <g fill="none" stroke="#c5cdd4" stroke-linecap="round" stroke-width="2.2">
+    <path d="M40 32l9 16"/>
+    <path d="M50 32l-9 16"/>
+    <circle cx="42" cy="51" r="3.2"/>
+    <circle cx="56" cy="51" r="3.2"/>
+  </g>
+</svg>

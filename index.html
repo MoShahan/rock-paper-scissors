@@ -1,51 +1,149 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport"
-		content="width=device-width,
-				initial-scale=1.0">
-	<link rel="stylesheet" href="rps.css">
-	<title>Rock Paper Scissor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Play Rock Paper Scissors in the browser. Choose best of three, a set number of rounds, or a custom match.">
+	<meta name="theme-color" content="#100e0c">
+	<meta property="og:title" content="Rock Paper Scissors">
+	<meta property="og:description" content="A tabletop duel. Best of three, ten rounds, or whatever match you type in.">
+	<meta property="og:image" content="https://moshahan.github.io/rock-paper-scissors/assets/og-image.jpg">
+	<meta property="og:type" content="website">
+	<title>Rock Paper Scissors</title>
+	<link rel="icon" href="assets/favicon.ico" sizes="any">
+	<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="modern.css">
 </head>
 <body>
-	<section class="game">
-		<!--Title -->
-		<div class="title">Rock Paper Scissor</div>
-		<!--Display Score of player and computer -->
-		<div class="score">
-			<div class="playerScore">
-				<h2>Player</h2>
-				<p class="p-count count">0</p>
-			</div>	
-			<div class="computerScore">
-				<h2>Computer</h2>
-				<p class="c-count count">0</p>
+	<nav class="version-switch" aria-label="Site version">
+		<a href="classic.html">Classic</a>
+		<a class="is-active" href="index.html" aria-current="page">Modern</a>
+	</nav>
+
+	<main class="shell">
+		<header class="brand">
+			<img class="brand-mark" src="assets/icon-192.png" alt="" width="192" height="192">
+			<div>
+				<p class="eyebrow">A tabletop duel</p>
+				<h1>Rock Paper Scissors</h1>
 			</div>
-		</div>
-		
-		<div class="move">Choose your move</div>
-		
-		<!--Number of moves left before game ends -->
-		<div class="movesleft">Moves Left: 10 </div>
-		<br><br><br><br>
-	
-		<!--Options available to player to play game -->
-		<div class="options">
-			<button class="rock">Rock</button>	
-			<button class="paper">Paper</button>
-			<button class="scissor">Scissors</button>
-		</div>
-		
-		<!--Final result of game -->
-		<div class="result"></div>
-		
-		<!--Reload the game -->
-		<button class="reload"></button>
+		</header>
 
-	</section>
+		<section class="screen is-active" id="setup-screen" aria-labelledby="setup-title">
+			<div class="still-life" aria-hidden="true">
+				<img src="assets/rock.png" alt="" width="643" height="615">
+				<img src="assets/paper.png" alt="" width="589" height="580">
+				<img src="assets/scissors.png" alt="" width="488" height="873">
+			</div>
 
-	<script src="rps.js"></script>
+			<h2 id="setup-title">How long is the match?</h2>
+			<p class="lede">Pick a format, or type one. Best of a number plays until someone has the majority. A round count plays every round, ties included.</p>
+
+			<div class="mode-grid">
+				<button type="button" class="mode-card" data-spec="best of 3">
+					<span class="mode-kicker">Race</span>
+					<span class="mode-title">Best of 3</span>
+					<span class="mode-note">First to 2</span>
+				</button>
+				<button type="button" class="mode-card" data-spec="best of 5">
+					<span class="mode-kicker">Race</span>
+					<span class="mode-title">Best of 5</span>
+					<span class="mode-note">First to 3</span>
+				</button>
+				<button type="button" class="mode-card" data-spec="best of 7">
+					<span class="mode-kicker">Race</span>
+					<span class="mode-title">Best of 7</span>
+					<span class="mode-note">First to 4</span>
+				</button>
+				<button type="button" class="mode-card" data-spec="5 rounds">
+					<span class="mode-kicker">Set</span>
+					<span class="mode-title">5 rounds</span>
+					<span class="mode-note">Highest score wins</span>
+				</button>
+				<button type="button" class="mode-card" data-spec="10 rounds">
+					<span class="mode-kicker">Set</span>
+					<span class="mode-title">10 rounds</span>
+					<span class="mode-note">Highest score wins</span>
+				</button>
+			</div>
+
+			<form class="custom-match" id="custom-match">
+				<label for="match-spec">Custom match</label>
+				<div class="custom-row">
+					<input id="match-spec" name="match-spec" type="text" maxlength="40" autocomplete="off" placeholder="best of 9, 12 rounds, first to 4">
+					<button type="submit">Start</button>
+				</div>
+				<p class="form-hint" id="match-error" role="status"></p>
+			</form>
+		</section>
+
+		<section class="screen" id="play-screen" hidden>
+			<div class="scoreboard">
+				<div class="score-side">
+					<span class="score-label">You</span>
+					<span class="score-value" id="player-score">0</span>
+				</div>
+				<div class="score-mid">
+					<p class="match-label" id="match-label"></p>
+					<p class="round-label" id="round-label"></p>
+				</div>
+				<div class="score-side is-cpu">
+					<span class="score-label">CPU</span>
+					<span class="score-value" id="computer-score">0</span>
+				</div>
+			</div>
+
+			<div class="arena" aria-live="polite">
+				<figure class="pedestal" id="player-pedestal">
+					<div class="pedestal-art" id="player-art"></div>
+					<figcaption>You</figcaption>
+				</figure>
+				<div class="versus" aria-hidden="true">VS</div>
+				<figure class="pedestal" id="computer-pedestal">
+					<div class="pedestal-art" id="computer-art"></div>
+					<figcaption>Computer</figcaption>
+				</figure>
+			</div>
+
+			<p class="status" id="status">Choose your move</p>
+			<ol class="history" id="history" aria-label="Round history"></ol>
+
+			<div class="choices" id="choices">
+				<button type="button" class="choice" data-choice="rock" aria-label="Rock">
+					<img src="assets/rock.png" alt="" width="643" height="615" draggable="false">
+					<span class="choice-name">Rock</span>
+					<span class="choice-key">R</span>
+				</button>
+				<button type="button" class="choice" data-choice="paper" aria-label="Paper">
+					<img src="assets/paper.png" alt="" width="589" height="580" draggable="false">
+					<span class="choice-name">Paper</span>
+					<span class="choice-key">P</span>
+				</button>
+				<button type="button" class="choice" data-choice="scissors" aria-label="Scissors">
+					<img src="assets/scissors.png" alt="" width="488" height="873" draggable="false">
+					<span class="choice-name">Scissors</span>
+					<span class="choice-key">S</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="screen" id="over-screen" hidden>
+			<p class="eyebrow" id="over-kicker">Match over</p>
+			<h2 id="over-title">You take the table</h2>
+			<p class="final-score" id="final-score">0 — 0</p>
+			<p class="lede" id="over-copy"></p>
+			<div class="over-actions">
+				<button type="button" class="primary" id="play-again">Play again</button>
+				<button type="button" class="ghost" id="new-match">New match</button>
+			</div>
+		</section>
+	</main>
+
+	<script src="dom.js"></script>
+	<script src="modern.js"></script>
 </body>
 </html>

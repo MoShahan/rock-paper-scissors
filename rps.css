@@ -1,119 +1,138 @@
-/* universal selector - Applies to whole document */
-*{
+* {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	/*background: #E40099;*/
-	/*color: #fff;*/
-	color: #000000;
+	color: #000;
 }
-/* To center everything in game */
-.game{
-	background-image: url("rock-paper-scissor-ft.jpeg");
-	/*transform: scaleX(-1);*/
-	background-size: 100%;
-	/*filter: blur(0.9px);*/
+
+.game {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	background-image: url("rock-paper-scissor-ft.jpeg");
+	background-size: 100%;
 }
 
-/* Title of the game */
-.title{
+.title {
 	position: absolute;
 	top: 0;
-	/*color: lightskyblue;*/
-	/*color: silver;*/
-	color: blanchedalmond;
-	/*font-family: verdana;*/
-	font-size: 3.5rem;
 	z-index: 2;
+	color: blanchedalmond;
+	font-size: 3.5rem;
 }
 
-/* Score Board */
-.score{
+.score {
 	display: flex;
-	width: 30vw;
-	justify-content: space-evenly;
 	position: absolute;
 	top: 80px;
 	z-index: 1;
+	width: 30vw;
+	justify-content: space-evenly;
 }
 
-/* Score */
-.p-count,.c-count{
-	/*background: rgba(0, 0, 0, 0.7);*/
-	text-align: center;
-	font-size: 1.7rem;
+.p-count,
+.c-count {
 	margin-top: 1rem;
+	font-size: 1.7rem;
+	text-align: center;
 }
 
-/* displaying three buttons in one line */
-.options{
+.options {
 	display: flex;
 	width: 110vw;
 	justify-content: space-evenly;
-	/*margin-top: 0rem;*/
 }
 
-/* Styling on alll three buttons */
-.rock, .paper, .scissor{
-	background: rgba(0, 0, 0, 0);
-	height: 300px;
-	padding: 0rem;
+.rock,
+.paper,
+.scissor {
 	width: 200px;
-	font-size: 0px;
-	/*border-radius: 10px;*/
-	/*background: green;*/
-	/*background: #FF748C;*/
-	/*outline: none;*/
-	/*border-color: green;*/
+	height: 300px;
+	padding: 0;
+	font-size: 0;
+	background: transparent;
 	border: none;
 	cursor: pointer;
 }
 
-.move{
+.rock {
+	clip-path: polygon(18% 32%, 8% 48%, 12% 70%, 30% 86%, 58% 90%, 82% 76%, 90% 52%, 80% 30%, 58% 18%, 34% 20%);
+}
+
+.paper {
+	clip-path: polygon(28% 22%, 55% 12%, 82% 22%, 94% 48%, 84% 76%, 58% 90%, 28% 82%, 10% 58%, 14% 34%);
+}
+
+.scissor {
+	clip-path: polygon(46% 4%, 53% 4%, 54% 36%, 62% 6%, 70% 8%, 58% 42%, 84% 58%, 88% 72%, 78% 84%, 68% 84%, 62% 70%, 52% 54%, 42% 70%, 36% 84%, 26% 84%, 16% 72%, 20% 58%, 44% 42%, 32% 8%, 40% 6%, 48% 36%);
+}
+
+.move {
 	position: relative;
 	top: 40px;
 	font-size: 2rem;
 	font-weight: bold;
 }
-.movesleft{
+
+.movesleft {
 	position: relative;
 	top: 50px;
 }
 
-/* Reload button style */
 .reload {
 	display: none;
 	margin-top: 2rem;
 	padding: 1rem;
-	background: #E40099;
-	outline: none;
+	background: #e40099;
 	border: none;
 	border-radius: 10px;
+	outline: none;
 	cursor: pointer;
 }
 
-.result{
+.result {
 	margin-top: 20px;
 	font-size: 1.2rem;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 612px)
-{
-	.title{
+.version-switch {
+	position: fixed;
+	top: 12px;
+	right: 12px;
+	z-index: 20;
+	display: flex;
+	overflow: hidden;
+	border: 1px solid blanchedalmond;
+	background: rgb(0 0 0 / 35%);
+}
+
+.version-switch a {
+	padding: 6px 10px;
+	color: blanchedalmond;
+	font-family: sans-serif;
+	font-size: 0.85rem;
+	text-decoration: none;
+}
+
+.version-switch a.is-active {
+	background: rgb(0 0 0 / 55%);
+}
+
+@media (width <= 612px) {
+	.title {
 		text-align: center;
 	}
-	.score{
+
+	.score {
 		position: absolute;
 		top: 200px;
 		width: 100vw;
 	}
-	.options{
+
+	.options {
 		width: 100vw;
 	}
+}

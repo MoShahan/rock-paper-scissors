@@ -1,150 +1,127 @@
+(() => {
+	"use strict";
 
-// Complete logic of game inside this function
-const game = () => {
-	let playerScore = 0;
-	let computerScore = 0;
-	let moves = 0;
+	const { $, on } = window.dom;
+	const TOTAL_MOVES = 10;
+	const CHOICES = ["rock", "paper", "scissors"];
+	const BEATS = {
+		rock: "scissors",
+		paper: "rock",
+		scissors: "paper",
+	};
 
+	const els = {
+		options: $(".options"),
+		movesLeft: $(".movesleft"),
+		result: $(".result"),
+		prompt: $(".move"),
+		reload: $(".reload"),
+		playerScore: $(".p-count"),
+		computerScore: $(".c-count"),
+	};
 
-	// Function to
-	const playGame = () => {
-		const rockBtn = document.querySelector('.rock');
-		const paperBtn = document.querySelector('.paper');
-		const scissorBtn = document.querySelector('.scissor');
-		const playerOptions = [rockBtn,paperBtn,scissorBtn];
-		const computerOptions = ['rock','paper','scissors']
-		
-		// Function to start playing game
-		playerOptions.forEach(option => {
-			option.addEventListener('click',function(){
+	const state = {
+		playerScore: 0,
+		computerScore: 0,
+		moves: 0,
+		over: false,
+	};
 
-				const movesLeft = document.querySelector('.movesleft');
-				moves++;
-				movesLeft.innerText = `Moves Left: ${10-moves}`;
-				
+	const pickComputer = () => CHOICES[Math.floor(Math.random() * CHOICES.length)];
 
-				const choiceNumber = Math.floor(Math.random()*3);
-				const computerChoice = computerOptions[choiceNumber];
+	const paint = (el, styles) => {
+		Object.assign(el.style, styles);
+	};
 
-				// Function to check who wins
-				winner(this.innerText,computerChoice)
-				
-				// Calling gameOver function after 10 moves
-				if(moves == 10){
-					gameOver(playerOptions,movesLeft);
-				}
-			})
-		})
-		
-	}
+	const showRoundResult = (text) => {
+		els.result.textContent = text;
+		paint(els.result, { background: "rgba(0,0,0,0.3)" });
+	};
 
-	// Function to decide winner
-	const winner = (player,computer) => {
-		// const curr_res = "50px";
-		const result = document.querySelector('.result');
-		const playerScoreBoard = document.querySelector('.p-count');
-		const computerScoreBoard = document.querySelector('.c-count');
-		player = player.toLowerCase();
-		computer = computer.toLowerCase();
-		if(player === computer){
-			result.textContent = 'Tie'
-			result.style.background = "rgba(0,0,0,0.3)";
+	const scorePlayer = () => {
+		state.playerScore += 1;
+		els.playerScore.textContent = state.playerScore;
+		showRoundResult("Player Won");
+	};
+
+	const scoreComputer = () => {
+		state.computerScore += 1;
+		els.computerScore.textContent = state.computerScore;
+		showRoundResult("Computer Won");
+	};
+
+	const decideWinner = (playerMove, computerMove) => {
+		const player = playerMove.toLowerCase();
+		const computer = computerMove.toLowerCase();
+
+		if (player === computer) {
+			showRoundResult("Tie");
+			return;
 		}
-		else if(player == 'rock'){
-			if(computer == 'paper'){
-				result.textContent = 'Computer Won';
-				// result.style.fontSize = curr_res;
-				result.style.background = "rgba(0,0,0,0.3)";
-				computerScore++;
-				computerScoreBoard.textContent = computerScore;
 
-			}else{
-				result.textContent = 'Player Won'
-				playerScore++;
-				result.style.background = "rgba(0,0,0,0.3)";
-				playerScoreBoard.textContent = playerScore;
-			}
+		if (BEATS[player] === computer) {
+			scorePlayer();
+			return;
 		}
-		else if(player == 'scissors'){
-			if(computer == 'rock'){
-				result.textContent = 'Computer Won';
-				computerScore++;
-				result.style.background = "rgba(0,0,0,0.3)";
-				computerScoreBoard.textContent = computerScore;
-			}else{
-				result.textContent = 'Player Won';
-				result.style.background = "rgba(0,0,0,0.3)";
-				playerScore++;
-				playerScoreBoard.textContent = playerScore;
-			}
+
+		scoreComputer();
+	};
+
+	const finishBanner = (text, color) => {
+		els.result.innerText = text;
+		paint(els.result, {
+			fontSize: "2rem",
+			color,
+			background: "rgba(0,0,0,0.7)",
+			padding: "10px",
+		});
+	};
+
+	const gameOver = () => {
+		state.over = true;
+		els.options.querySelectorAll("button").forEach((button) => {
+			button.style.display = "none";
+		});
+
+		els.prompt.innerText = "Game Over !!!";
+		paint(els.prompt, {
+			background: "rgba(0,0,0,0.7)",
+			color: "#878787",
+			padding: "10px",
+		});
+		els.movesLeft.style.display = "none";
+
+		if (state.playerScore > state.computerScore) {
+			finishBanner("You Won The Game", "#308D46");
+		} else if (state.playerScore < state.computerScore) {
+			finishBanner("You Lost The Game", "red");
+		} else {
+			finishBanner("Tie", "grey");
 		}
-		else if(player == 'paper'){
-			if(computer == 'scissors'){
-				result.textContent = 'Computer Won';
-				result.style.background = "rgba(0,0,0,0.3)";
-				computerScore++;
-				computerScoreBoard.textContent = computerScore;
-			}else{
-				result.textContent = 'Player Won';
-				result.style.background = "rgba(0,0,0,0.3)";
-				playerScore++;
-				playerScoreBoard.textContent = playerScore;
-			}
+
+		els.reload.innerText = "Restart";
+		els.reload.style.display = "flex";
+	};
+
+	const playMove = (playerChoice) => {
+		if (state.over) {
+			return;
 		}
-	}
 
-	// Function to run when game is over
-	const gameOver = (playerOptions,movesLeft) => {
+		state.moves += 1;
+		els.movesLeft.innerText = `Moves Left: ${TOTAL_MOVES - state.moves}`;
+		decideWinner(playerChoice, pickComputer());
 
-		const chooseMove = document.querySelector('.move');
-		const result = document.querySelector('.result');
-		const reloadBtn = document.querySelector('.reload');
-
-		playerOptions.forEach(option => {
-			option.style.display = 'none';
-		})
-
-	
-		chooseMove.innerText = 'Game Over !!!'
-		chooseMove.style.background = "rgba(0,0,0,0.7)";
-		chooseMove.style.color = "#878787";
-		chooseMove.style.padding = "10px";
-
-		movesLeft.style.display = 'none';
-
-		if(playerScore > computerScore){
-			result.style.fontSize = '2rem';
-			result.innerText = 'You Won The Game'
-			result.style.color = '#308D46';
-			result.style.background = "rgba(0,0,0,0.7)";
-			result.style.padding = "10px";
+		if (state.moves === TOTAL_MOVES) {
+			gameOver();
 		}
-		else if(playerScore < computerScore){
-			result.style.fontSize = '2rem';
-			result.innerText = 'You Lost The Game';
-			result.style.color = 'red';
-			result.style.background = "rgba(0,0,0,0.7)";
-			result.style.padding = "10px";
-		}
-		else{
-			result.style.fontSize = '2rem';
-			result.innerText = 'Tie';
-			result.style.color = 'grey'
-			result.style.background = "rgba(0,0,0,0.7)";
-			result.style.padding = "10px";
-		}
-		reloadBtn.innerText = 'Restart';
-		reloadBtn.style.display = 'flex'
-		reloadBtn.addEventListener('click',() => {
-			window.location.reload();
-		})
-	}
+	};
 
+	on(els.options, "click", "[data-choice]", (event, button) => {
+		playMove(button.dataset.choice);
+	});
 
-	// Calling playGame function inside game
-	playGame();
-	
-}
-
-// Calling the game function
-game();
+	els.reload.addEventListener("click", () => {
+		window.location.reload();
+	});
+})();
